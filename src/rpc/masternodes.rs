@@ -16,10 +16,10 @@ impl DashRpcClient {
     }
 
     pub async fn get_protx_list(&self) -> Result<Vec<RpcProtx>, AppError> {
-        self.call("protx", json!(["list", "registered", true])).await
+        self.call("protx", json!(["list", "registered", 1])).await
     }
 
     pub async fn get_protx_info(&self, protx_hash: &str) -> Result<RpcProtx, AppError> {
-        self.call("protx", json!(["info", protx_hash, true])).await
+        self.call("protx", json!(["info", protx_hash])).await
     }
 }
