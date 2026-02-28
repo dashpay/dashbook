@@ -736,7 +736,7 @@ pub async fn governance_budget(
 ) -> Result<Json<Value>, AppError> {
     let budget = state.rpc.get_superblock_budget(block_index).await?;
     Ok(Json(json!({
-        "result": format!("{:.2}", budget),
+        "result": budget,
         "error": null,
         "id": 1
     })))

@@ -26,7 +26,7 @@ impl DashRpcClient {
         self.call("gobject", json!(["get", hash])).await
     }
 
-    pub async fn get_gobject_count(&self) -> Result<String, AppError> {
+    pub async fn get_gobject_count(&self) -> Result<serde_json::Value, AppError> {
         self.call("gobject", json!(["count"])).await
     }
 
