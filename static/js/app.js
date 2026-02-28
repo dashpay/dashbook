@@ -9,6 +9,7 @@ import { renderTransaction } from './pages/transaction.js';
 import { renderAddress } from './pages/address.js';
 import { renderMasternodes } from './pages/masternodes.js';
 import { renderMasternode } from './pages/masternode.js';
+import { renderMempool } from './pages/mempool.js';
 import { renderGovernance } from './pages/governance.js';
 import { renderNetwork } from './pages/network.js';
 
@@ -21,6 +22,7 @@ router.on('/tx/:txid', renderTransaction);
 router.on('/address/:addr', renderAddress);
 router.on('/masternodes', renderMasternodes);
 router.on('/masternode/:hash', renderMasternode);
+router.on('/mempool', renderMempool);
 router.on('/governance', renderGovernance);
 router.on('/network', renderNetwork);
 
