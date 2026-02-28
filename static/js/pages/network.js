@@ -1,5 +1,5 @@
 import { api } from '../api.js';
-import { formatDashShort, formatNumber, formatTime, blockLink, hashLink, showLoading } from '../components.js';
+import { formatDashShort, formatNumber, formatTime, blockLink, hashLink, showLoading, escapeHtml } from '../components.js';
 
 export async function renderNetwork() {
     const app = document.getElementById('app');
@@ -100,6 +100,6 @@ export async function renderNetwork() {
             </div>
         `;
     } catch (e) {
-        app.innerHTML = `<div class="error-message"><h2>Error</h2><p>${e.message}</p></div>`;
+        app.innerHTML = `<div class="error-message"><h2>Error</h2><p>${escapeHtml(e.message)}</p></div>`;
     }
 }

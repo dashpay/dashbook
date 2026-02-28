@@ -1,5 +1,5 @@
 import { api } from '../api.js';
-import { formatDashShort, formatDashValue, formatNumber, hashLink, blockLink, showLoading, renderPagination, bindPagination } from '../components.js';
+import { formatDashShort, formatDashValue, formatNumber, hashLink, blockLink, showLoading, renderPagination, bindPagination, escapeHtml } from '../components.js';
 
 let currentPage = 1;
 let currentAddress = '';
@@ -78,6 +78,6 @@ async function loadAddress(addr, page) {
         document.getElementById('addr-pagination').innerHTML = renderPagination(page, Math.min(totalPages, 200));
         bindPagination(document.getElementById('addr-pagination'), (p) => loadAddress(addr, p));
     } catch (e) {
-        app.innerHTML = `<div class="error-message"><h2>Error</h2><p>${e.message}</p></div>`;
+        app.innerHTML = `<div class="error-message"><h2>Error</h2><p>${escapeHtml(e.message)}</p></div>`;
     }
 }

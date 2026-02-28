@@ -1,5 +1,5 @@
 import { api } from '../api.js';
-import { formatDashShort, formatNumber, formatTime, blockLink, fullAddressLink, showLoading } from '../components.js';
+import { formatDashShort, formatNumber, formatTime, blockLink, fullAddressLink, showLoading, escapeHtml } from '../components.js';
 
 export async function renderGovernance() {
     const app = document.getElementById('app');
@@ -50,7 +50,7 @@ export async function renderGovernance() {
             }
         `;
     } catch (e) {
-        app.innerHTML = `<div class="error-message"><h2>Error</h2><p>${e.message}</p></div>`;
+        app.innerHTML = `<div class="error-message"><h2>Error</h2><p>${escapeHtml(e.message)}</p></div>`;
     }
 }
 

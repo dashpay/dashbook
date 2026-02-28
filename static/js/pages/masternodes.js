@@ -1,5 +1,5 @@
 import { api } from '../api.js';
-import { mnStatusBadge, mnTypeBadge, formatNumber, hashLink, blockLink, addressLink, showLoading, renderPagination, bindPagination } from '../components.js';
+import { mnStatusBadge, mnTypeBadge, formatNumber, hashLink, blockLink, addressLink, showLoading, renderPagination, bindPagination, escapeHtml } from '../components.js';
 
 let currentType = 'all';
 let currentStatus = 'all';
@@ -80,6 +80,6 @@ async function loadMasternodes() {
             loadMasternodes();
         });
     } catch (e) {
-        document.getElementById('mn-content').innerHTML = `<div class="error-message">${e.message}</div>`;
+        document.getElementById('mn-content').innerHTML = `<div class="error-message">${escapeHtml(e.message)}</div>`;
     }
 }

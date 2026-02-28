@@ -1,5 +1,5 @@
 import { api } from '../api.js';
-import { chainlockBadge, formatNumber, timeAgo, blockLink, renderPagination, bindPagination, showLoading } from '../components.js';
+import { chainlockBadge, formatNumber, timeAgo, blockLink, renderPagination, bindPagination, showLoading, escapeHtml } from '../components.js';
 
 let currentPage = 1;
 
@@ -43,6 +43,6 @@ async function loadBlocks(page) {
         document.getElementById('blocks-pagination').innerHTML = renderPagination(page, totalPages);
         bindPagination(document.getElementById('blocks-pagination'), loadBlocks);
     } catch (e) {
-        document.getElementById('blocks-content').innerHTML = `<div class="error-message">${e.message}</div>`;
+        document.getElementById('blocks-content').innerHTML = `<div class="error-message">${escapeHtml(e.message)}</div>`;
     }
 }

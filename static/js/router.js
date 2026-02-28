@@ -42,11 +42,11 @@ export class Router {
                     if (typeof cleanup === 'function') this.currentCleanup = cleanup;
                 } catch (e) {
                     console.error('Route error:', e);
-                    document.getElementById('app').innerHTML = `
-                        <div class="error-message">
-                            <h2>Error</h2>
-                            <p>${e.message}</p>
-                        </div>`;
+                    const p = document.createElement('p');
+                    p.textContent = e.message;
+                    const app = document.getElementById('app');
+                    app.innerHTML = '<div class="error-message"><h2>Error</h2></div>';
+                    app.querySelector('.error-message').appendChild(p);
                 }
                 return;
             }

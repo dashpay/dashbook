@@ -139,6 +139,14 @@ export function bindPagination(container, onChange) {
     });
 }
 
+// ============ Escape ============
+
+export function escapeHtml(str) {
+    const d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+}
+
 // ============ Loading ============
 
 export function showLoading(container) {

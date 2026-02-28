@@ -1,5 +1,5 @@
 import { api } from '../api.js';
-import { chainlockBadge, instantSendBadge, txTypeBadge, formatDashValue, formatTime, formatNumber, hashLink, blockLink, addressLink, fullAddressLink, showLoading } from '../components.js';
+import { chainlockBadge, instantSendBadge, txTypeBadge, formatDashValue, formatTime, formatNumber, hashLink, blockLink, addressLink, fullAddressLink, showLoading, escapeHtml } from '../components.js';
 
 export async function renderTransaction({ txid }) {
     const app = document.getElementById('app');
@@ -95,7 +95,7 @@ export async function renderTransaction({ txid }) {
             </div>
         `;
     } catch (e) {
-        app.innerHTML = `<div class="error-message"><h2>Error</h2><p>${e.message}</p></div>`;
+        app.innerHTML = `<div class="error-message"><h2>Error</h2><p>${escapeHtml(e.message)}</p></div>`;
     }
 }
 

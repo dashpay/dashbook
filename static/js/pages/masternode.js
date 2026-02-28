@@ -1,5 +1,5 @@
 import { api } from '../api.js';
-import { mnStatusBadge, mnTypeBadge, formatNumber, hashLink, fullAddressLink, blockLink, showLoading } from '../components.js';
+import { mnStatusBadge, mnTypeBadge, formatNumber, hashLink, fullAddressLink, blockLink, showLoading, escapeHtml } from '../components.js';
 
 export async function renderMasternode({ hash }) {
     const app = document.getElementById('app');
@@ -102,6 +102,6 @@ export async function renderMasternode({ hash }) {
             </div>
         `;
     } catch (e) {
-        app.innerHTML = `<div class="error-message"><h2>Error</h2><p>${e.message}</p></div>`;
+        app.innerHTML = `<div class="error-message"><h2>Error</h2><p>${escapeHtml(e.message)}</p></div>`;
     }
 }

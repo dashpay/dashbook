@@ -34,7 +34,8 @@ pub async fn list_blocks(
     let start = tip.saturating_sub((page as u64 - 1) * limit as u64);
     let end = start.saturating_sub(limit as u64 - 1);
 
-    let mut blocks = Vec::with_capacity(limit as usize);
+    let count = (start - end + 1) as usize;
+    let mut blocks = Vec::with_capacity(count);
     for h in (end..=start).rev() {
         let hash = state.rpc.get_block_hash(h).await?;
         let block = state.rpc.get_block_header(&hash).await?;
