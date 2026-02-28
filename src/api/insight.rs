@@ -179,9 +179,19 @@ pub async fn get_txs(
 
     if let Some(ref block_hash) = params.block {
         let block = state.rpc.get_block(block_hash, 2).await?;
+        let block_info = (
+            block_hash.as_str(),
+            block.height,
+            block.time,
+            block.confirmations as i64,
+        );
         let txs: Vec<Value> = block
             .transactions()
-            .map(|txs| txs.iter().map(|tx| format_insight_tx(tx)).collect())
+            .map(|txs| {
+                txs.iter()
+                    .map(|tx| format_insight_tx_with_block(tx, Some(block_info)))
+                    .collect()
+            })
             .unwrap_or_default();
 
         let total = txs.len();
@@ -859,6 +869,13 @@ pub async fn estimate_fee(
 // ============ Helpers ============
 
 fn format_insight_tx(tx: &crate::rpc::types::RpcTransaction) -> Value {
+    format_insight_tx_with_block(tx, None)
+}
+
+fn format_insight_tx_with_block(
+    tx: &crate::rpc::types::RpcTransaction,
+    block_info: Option<(&str, u64, u64, i64)>, // (blockhash, height, time, confirmations)
+) -> Value {
     let vin: Vec<Value> = tx
         .vin
         .iter()
@@ -876,6 +893,7 @@ fn format_insight_tx(tx: &crate::rpc::types::RpcTransaction) -> Value {
                     "vout": input.vout,
                     "sequence": input.sequence,
                     "n": i,
+                    "doubleSpentTxID": null,
                 });
                 if let Some(ref addr) = input.address {
                     v["addr"] = json!(addr);
@@ -899,13 +917,18 @@ fn format_insight_tx(tx: &crate::rpc::types::RpcTransaction) -> Value {
         .vout
         .iter()
         .map(|output| {
+            let mut spk = json!({
+                "hex": output.script_pub_key.hex,
+                "asm": output.script_pub_key.asm,
+                "type": output.script_pub_key.script_type,
+            });
+            if let Some(ref addr) = output.script_pub_key.address {
+                spk["addresses"] = json!([addr]);
+            }
             json!({
                 "value": format!("{:.8}", output.value),
                 "n": output.n,
-                "scriptPubKey": {
-                    "hex": output.script_pub_key.hex,
-                    "asm": output.script_pub_key.asm,
-                },
+                "scriptPubKey": spk,
                 "spentTxId": output.spent_tx_id,
                 "spentIndex": output.spent_index,
                 "spentHeight": output.spent_height,
@@ -914,24 +937,52 @@ fn format_insight_tx(tx: &crate::rpc::types::RpcTransaction) -> Value {
         .collect();
 
     let value_out: f64 = tx.vout.iter().map(|o| o.value).sum();
+    let value_in: f64 = tx.vin.iter().filter_map(|i| i.value).sum();
     let is_coinbase = tx.vin.first().map(|i| i.coinbase.is_some()).unwrap_or(false);
+    let fees = if is_coinbase { 0.0 } else { value_in - value_out };
 
-    json!({
+    // Use block_info override when tx comes from getblock verbosity 2
+    let (blockhash, blockheight, time, blocktime, confirmations) = match block_info {
+        Some((bh, height, t, conf)) => (
+            Some(bh.to_string()),
+            Some(height),
+            Some(t),
+            Some(t),
+            Some(conf),
+        ),
+        None => (
+            tx.blockhash.clone(),
+            tx.height,
+            tx.time,
+            tx.blocktime,
+            tx.confirmations,
+        ),
+    };
+
+    let mut result = json!({
         "txid": tx.txid,
         "version": tx.version,
         "locktime": tx.locktime,
         "vin": vin,
         "vout": vout,
-        "blockhash": tx.blockhash,
-        "blockheight": tx.height,
-        "confirmations": tx.confirmations,
-        "time": tx.time,
-        "blocktime": tx.blocktime,
-        "isCoinBase": is_coinbase,
+        "blockhash": blockhash,
+        "blockheight": blockheight,
+        "confirmations": confirmations,
+        "time": time,
+        "blocktime": blocktime,
         "valueOut": value_out,
         "size": tx.size,
         "txlock": tx.instantlock
-    })
+    });
+
+    if !is_coinbase {
+        result["valueIn"] = json!(value_in);
+        result["fees"] = json!(fees);
+    } else {
+        result["isCoinBase"] = json!(true);
+    }
+
+    result
 }
 
 fn parse_date_to_ts(date_str: &str) -> u64 {
