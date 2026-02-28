@@ -1,0 +1,393 @@
+/* ============ Cards ============ */
+
+.card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    border-color: var(--dash-blue);
+    box-shadow: var(--shadow-hover);
+}
+
+.card-header {
+    padding: 1.1rem 1.4rem;
+    border-bottom: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-body {
+    padding: 1.1rem 1.4rem;
+}
+
+/* ============ Stat Cards ============ */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1.5rem 1.6rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.1rem;
+    transition: border-color 0.2s;
+}
+
+.stat-card:hover {
+    border-color: rgba(0, 141, 228, 0.3);
+}
+
+.stat-icon {
+    font-size: 1.5rem;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    flex-shrink: 0;
+}
+
+.stat-icon.blue { background: var(--bg-badge); color: var(--dash-blue); }
+.stat-icon.green { background: var(--color-success-bg); color: var(--color-success); }
+.stat-icon.purple { background: var(--color-purple-bg); color: var(--color-purple); }
+.stat-icon.orange { background: var(--color-warning-bg); color: var(--color-warning); }
+.stat-icon.info { background: var(--color-info-bg); color: var(--color-info); }
+
+.stat-content { flex: 1; min-width: 0; }
+
+.stat-value {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    color: var(--text-primary);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 0.2rem;
+}
+
+.stat-sub {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.15rem;
+}
+
+/* ============ Badges ============ */
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+}
+
+.badge-chainlock {
+    background: var(--color-success-bg);
+    color: var(--color-success);
+    border: 1px solid rgba(0, 200, 83, 0.2);
+}
+
+.badge-pending {
+    background: rgba(93, 101, 144, 0.15);
+    color: var(--text-muted);
+    border: 1px solid rgba(93, 101, 144, 0.2);
+}
+
+.badge-instantsend {
+    background: var(--color-info-bg);
+    color: var(--color-info);
+    border: 1px solid rgba(41, 182, 246, 0.2);
+}
+
+.badge-standard { background: rgba(93, 101, 144, 0.1); color: var(--text-secondary); }
+.badge-coinbase { background: var(--color-purple-bg); color: var(--color-purple); border: 1px solid rgba(171, 71, 188, 0.2); }
+.badge-proreg { background: var(--bg-badge); color: var(--dash-blue); border: 1px solid rgba(0, 141, 228, 0.2); }
+.badge-proupserv { background: var(--color-info-bg); color: var(--color-info); border: 1px solid rgba(41, 182, 246, 0.2); }
+.badge-proupreg { background: var(--color-info-bg); color: var(--color-info); border: 1px solid rgba(41, 182, 246, 0.2); }
+.badge-prouprev { background: var(--color-warning-bg); color: var(--color-warning); border: 1px solid rgba(255, 167, 38, 0.2); }
+.badge-qc { background: var(--color-purple-bg); color: var(--color-purple); border: 1px solid rgba(171, 71, 188, 0.2); }
+.badge-assetlock { background: var(--color-success-bg); color: var(--color-success); border: 1px solid rgba(0, 200, 83, 0.2); }
+.badge-assetunlock { background: var(--color-warning-bg); color: var(--color-warning); border: 1px solid rgba(255, 167, 38, 0.2); }
+.badge-enabled { background: var(--color-success-bg); color: var(--color-success); border: 1px solid rgba(0, 200, 83, 0.2); }
+.badge-banned { background: var(--color-danger-bg); color: var(--color-danger); border: 1px solid rgba(239, 83, 80, 0.2); }
+.badge-evo { background: var(--bg-badge); color: var(--dash-blue); border: 1px solid rgba(0, 141, 228, 0.2); }
+.badge-regular { background: rgba(93, 101, 144, 0.1); color: var(--text-secondary); border: 1px solid rgba(93, 101, 144, 0.15); }
+
+/* ============ Data Tables ============ */
+
+.card-body:has(.data-table) {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    min-width: 500px;
+}
+
+.data-table th {
+    text-align: left;
+    padding: 0.75rem 1rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+}
+
+.data-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-subtle);
+    vertical-align: middle;
+}
+
+.data-table tr:last-child td {
+    border-bottom: none;
+}
+
+.data-table tr:hover td {
+    background: rgba(0, 141, 228, 0.03);
+}
+
+.data-table .mono {
+    font-size: 0.9rem;
+}
+
+/* ============ Detail Rows ============ */
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 0;
+}
+
+.detail-label {
+    padding: 0.7rem 1rem 0.7rem 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.detail-value {
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--border-subtle);
+    word-break: break-all;
+    font-family: var(--font-data);
+    font-size: 0.95rem;
+}
+
+.detail-value.normal-font {
+    font-family: var(--font-body);
+}
+
+/* ============ Pagination ============ */
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.pagination button, .pagination .page-num {
+    padding: 0.45rem 0.9rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.pagination button:hover, .pagination .page-num:hover {
+    border-color: var(--dash-blue);
+    color: var(--text-primary);
+}
+
+.pagination button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.pagination .page-num.active {
+    background: var(--dash-blue);
+    border-color: var(--dash-blue);
+    color: white;
+}
+
+.pagination .page-info {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    padding: 0 0.5rem;
+}
+
+/* ============ Section Headers ============ */
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.section-header h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.view-all {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* ============ Filters ============ */
+
+.filter-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 0.45rem 1rem;
+    border-radius: 100px;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filter-btn:hover, .filter-btn.active {
+    border-color: var(--dash-blue);
+    color: var(--dash-blue);
+    background: var(--bg-badge);
+}
+
+/* ============ Hash Links ============ */
+
+.hash-link {
+    color: var(--dash-blue);
+    font-family: var(--font-data);
+    font-size: 0.9rem;
+}
+
+.hash-link:hover {
+    color: var(--dash-blue-light);
+    text-decoration: underline;
+}
+
+.address-link {
+    color: var(--color-purple);
+    font-family: var(--font-data);
+    font-size: 0.9rem;
+}
+
+.address-link:hover {
+    color: #c16ad3;
+    text-decoration: underline;
+}
+
+/* ============ Error / Empty ============ */
+
+.error-message {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--color-danger);
+}
+
+.empty-message {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-muted);
+}
+
+/* ============ Special TX Payload ============ */
+
+.payload-section {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    margin-top: 0.5rem;
+}
+
+.payload-section h4 {
+    font-size: 0.85rem;
+    color: var(--dash-blue);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.payload-field {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.4rem 0;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.payload-field:last-child { border-bottom: none; }
+
+.payload-key {
+    color: var(--text-muted);
+    min-width: 160px;
+    flex-shrink: 0;
+}
+
+.payload-val {
+    font-family: var(--font-data);
+    word-break: break-all;
+}
+
+/* ============ OP_RETURN ============ */
+
+.op-return-data {
+    margin-top: 0.25rem;
+    padding: 0.3rem 0.5rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    word-break: break-all;
+}
+
+.op-return-decoded {
+    margin-top: 0.2rem;
+    padding: 0.2rem 0.4rem;
+    background: rgba(0, 141, 228, 0.06);
+    border-radius: 3px;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
