@@ -612,11 +612,6 @@ pub async fn gobject_count(
     })))
 }
 
-#[derive(Deserialize)]
-pub struct GobjectListParams {
-    pub r#type: Option<String>,
-}
-
 pub async fn gobject_list(
     State(state): State<AppState>,
 ) -> Result<Json<Value>, AppError> {
@@ -937,9 +932,19 @@ fn format_insight_tx_with_block(
         .collect();
 
     let value_out: f64 = tx.vout.iter().map(|o| o.value).sum();
-    let value_in: f64 = tx.vin.iter().filter_map(|i| i.value).sum();
+    let value_in_sat: i64 = tx
+        .vin
+        .iter()
+        .filter_map(|i| i.value_sat.or_else(|| i.value.map(|v| (v * 1e8) as i64)))
+        .sum();
+    let value_in = value_in_sat as f64 / 1e8;
     let is_coinbase = tx.vin.first().map(|i| i.coinbase.is_some()).unwrap_or(false);
-    let fees = if is_coinbase { 0.0 } else { value_in - value_out };
+    let value_out_sat: i64 = tx.vout.iter().map(|o| o.value_sat).sum();
+    let fees = if is_coinbase {
+        0.0
+    } else {
+        (value_in_sat - value_out_sat) as f64 / 1e8
+    };
 
     // Use block_info override when tx comes from getblock verbosity 2
     let (blockhash, blockheight, time, blocktime, confirmations) = match block_info {
