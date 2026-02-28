@@ -98,9 +98,3 @@ function renderProposal(p, threshold) {
         </div>
     `;
 }
-
-function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
-}
