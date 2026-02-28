@@ -21,4 +21,8 @@ impl DashRpcClient {
     pub async fn get_raw_mempool_txids(&self) -> Result<Vec<String>, AppError> {
         self.call("getrawmempool", json!([false])).await
     }
+
+    pub async fn send_raw_transaction(&self, hex: &str) -> Result<String, AppError> {
+        self.call("sendrawtransaction", json!([hex])).await
+    }
 }

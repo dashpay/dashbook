@@ -33,6 +33,10 @@ impl DashRpcClient {
         self.call("getblockchaininfo", json!([])).await
     }
 
+    pub async fn get_raw_block(&self, hash: &str) -> Result<String, AppError> {
+        self.call("getblock", json!([hash, 0])).await
+    }
+
     pub async fn get_chain_tx_stats(
         &self,
         n_blocks: Option<u32>,
