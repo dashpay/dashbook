@@ -95,7 +95,7 @@ export function blockLink(heightOrHash) {
 
 export function addressLink(addr) {
     if (!addr) return '<span class="text-muted">N/A</span>';
-    return `<a href="#/address/${addr}" class="address-link mono" title="${addr}">${truncHash(addr, 10)}</a>`;
+    return `<a href="#/address/${addr}" class="address-link mono">${addr}</a>`;
 }
 
 export function fullAddressLink(addr) {
