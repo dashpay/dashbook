@@ -28,12 +28,12 @@ export async function renderTransaction({ txid }) {
                         <div class="detail-value">${tx.txid}</div>
                         <div class="detail-label">Type</div>
                         <div class="detail-value normal-font">${tx.tx_type_label} (type ${tx.tx_type})</div>
+                        <div class="detail-label">Confirmed</div>
+                        <div class="detail-value">${tx.confirmed ? '<span style="color:var(--color-success)">Yes</span>' : '<span style="color:var(--color-danger)">No</span>'}</div>
                         <div class="detail-label">Block</div>
-                        <div class="detail-value">${tx.block_hash ? blockLink(tx.block_height) : '<span class="text-muted">Unconfirmed</span>'}</div>
+                        <div class="detail-value">${tx.block_hash ? blockLink(tx.block_height) : (tx.confirmed ? '<span class="text-muted">TBD</span>' : '<span class="text-muted">Unconfirmed</span>')}</div>
                         <div class="detail-label">Time</div>
-                        <div class="detail-value normal-font">${tx.time ? formatTime(tx.time) : 'Pending'}</div>
-                        <div class="detail-label">Confirmations</div>
-                        <div class="detail-value">${tx.confirmations != null ? formatNumber(tx.confirmations) : '0'}</div>
+                        <div class="detail-value normal-font">${tx.time ? formatTime(tx.time) : (tx.confirmed ? '<span class="text-muted">TBD</span>' : '<span class="text-muted">Pending</span>')}</div>
                         <div class="detail-label">Size</div>
                         <div class="detail-value">${formatNumber(tx.size)} bytes</div>
                         <div class="detail-label">Fee</div>
