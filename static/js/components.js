@@ -86,7 +86,7 @@ export function truncHash(hash, n = 8) {
 // ============ Links ============
 
 export function hashLink(hash, type = 'tx') {
-    return `<a href="#/${type}/${hash}" class="hash-link mono" title="${hash}">${truncHash(hash)}</a>`;
+    return `<a href="#/${type}/${hash}" class="hash-link mono">${hash}</a>`;
 }
 
 export function blockLink(heightOrHash) {

@@ -24,7 +24,7 @@ async function loadBlocks(page) {
         const rows = data.blocks.map(b => `
             <tr>
                 <td>${blockLink(b.height)}</td>
-                <td class="mono">${b.hash.slice(0, 16)}...</td>
+                <td class="mono">${b.hash}</td>
                 <td class="text-muted">${timeAgo(b.time)}</td>
                 <td>${b.n_tx}</td>
                 <td>${formatNumber(b.size)}</td>

@@ -57,13 +57,13 @@ async function loadMasternodes() {
 
         const rows = data.masternodes.map(mn => `
             <tr>
-                <td><a href="#/masternode/${mn.pro_tx_hash}" class="hash-link mono">${mn.pro_tx_hash.slice(0, 12)}...</a></td>
+                <td><a href="#/masternode/${mn.pro_tx_hash}" class="hash-link mono">${mn.pro_tx_hash}</a></td>
                 <td>${mnTypeBadge(mn.mn_type)}</td>
                 <td>${mnStatusBadge(mn.status)}</td>
                 <td class="mono" style="font-size:0.85rem">${mn.service}</td>
                 <td>${mn.pose_penalty > 0 ? `<span class="text-warning">${mn.pose_penalty}</span>` : '<span class="text-muted">0</span>'}</td>
                 <td>${mn.last_paid_block > 0 ? blockLink(mn.last_paid_block) : '<span class="text-muted">Never</span>'}</td>
-                ${mn.platform_node_id ? `<td class="mono" style="font-size:0.85rem">${mn.platform_node_id.slice(0, 10)}...</td>` : '<td class="text-muted">-</td>'}
+                ${mn.platform_node_id ? `<td class="mono" style="font-size:0.85rem">${mn.platform_node_id}</td>` : '<td class="text-muted">-</td>'}
             </tr>
         `).join('');
 
